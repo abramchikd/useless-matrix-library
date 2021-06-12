@@ -1,11 +1,11 @@
 #ifndef HOMEWORK_MATRIX_ROW_HPP
 #define HOMEWORK_MATRIX_ROW_HPP
 
+#include <vector>
+
 namespace mat {
 
-template <class T,
-    typename =
-    typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template<class T>
 class matrix_row {
   private:
     size_t width;
@@ -26,6 +26,5 @@ class matrix_row {
 
     auto operator[](size_t pos) -> T;
 };
-} // namespace mat
 
 #endif // HOMEWORK_MATRIX_ROW_HPP

@@ -6,9 +6,7 @@
 
 namespace mat {
 
-template <class T,
-          typename =
-              typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+template <class T>
 class matrix {
     size_t width;
     size_t height;
