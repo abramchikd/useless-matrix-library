@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10.0)
-add_executable(proj_test matrix/matrix.hpp matrix/matrix.cpp test.cpp)
-add_executable(proj main.cpp matrix/matrix.hpp matrix/matrix.cpp)
+add_executable(proj_test test.cpp matrix/matrix.hpp matrix/matrix.cpp matrix/matrix_row.hpp matrix/matrix_row.cpp)
+add_executable(proj main.cpp matrix/matrix.hpp matrix/matrix.cpp matrix/matrix_row.hpp matrix/matrix_row.cpp)
 target_link_libraries(proj_test PUBLIC doctest::doctest default)
 target_link_libraries(proj PUBLIC doctest::doctest default)
 doctest_discover_tests(proj_test)

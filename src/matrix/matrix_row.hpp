@@ -12,7 +12,7 @@ class matrix_row {
     std::vector<T> data;
 
   public:
-    matrix_row(int width);
+    explicit matrix_row(int width);
     matrix_row(std::initializer_list<T>);
     ~matrix_row() = default;
 
