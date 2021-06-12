@@ -8,6 +8,7 @@ template <class T,
     typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
 class matrix_row {
   private:
+    size_t width;
     std::vector<T> data;
 
   public:
@@ -17,6 +18,8 @@ class matrix_row {
 
     matrix_row(matrix_row const& other);
     matrix_row(matrix_row &&other) = delete;
+
+    auto get_width() -> size_t;
 
     auto operator=(matrix_row const &other) -> matrix_row<T>;
     auto operator=(matrix_row &&other) = delete;
