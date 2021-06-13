@@ -3,12 +3,12 @@
 #include <string>
 
 template <class T>
-mat::matrix_row<T>::matrix_row(size_t width)
-    : width{width}, data{std::vector(width, 0)} {}
+mat::matrix_row<T>::matrix_row(size_t _width)
+    : width{_width}, data{std::vector(_width, 0)} {}
 
 template <class T>
-mat::matrix_row<T>::matrix_row(std::initializer_list<T> data)
-    : width{data.size()}, data{data} {}
+mat::matrix_row<T>::matrix_row(std::initializer_list<T> _data)
+    : width{_data.size()}, data{_data} {}
 
 template <class T>
 mat::matrix_row<T>::matrix_row(mat::matrix_row<T> const &other)
@@ -39,3 +39,5 @@ auto mat::matrix_row<T>::operator[](size_t pos) -> T {
 
     return data.at(pos);
 }
+
+#include "matrix.inl"

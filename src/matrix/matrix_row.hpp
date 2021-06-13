@@ -13,8 +13,8 @@ class matrix_row {
     std::vector<T> data;
 
   public:
-    explicit matrix_row(size_t width);
-    matrix_row(std::initializer_list<T> data);
+    explicit matrix_row(size_t _width);
+    matrix_row(std::initializer_list<T> _data);
     ~matrix_row() = default;
 
     matrix_row(matrix_row<T> const &other);
@@ -28,5 +28,7 @@ class matrix_row {
     auto operator[](size_t pos) -> T;
 };
 }
+
+#include "matrix_row.inl"
 
 #endif // HOMEWORK_MATRIX_ROW_HPP

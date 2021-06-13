@@ -14,8 +14,8 @@ class matrix {
   public:
     matrix(size_t width, size_t height);
     matrix(std::initializer_list<std::initializer_list<T>>);
-    matrix(matrix const &other);
-    matrix(matrix &&other) = delete;
+    matrix(matrix<T> const &other);
+    matrix(matrix<T> &&other) = delete;
 
     auto get_width() -> size_t;
     auto get_height() -> size_t;
@@ -32,13 +32,15 @@ class matrix {
     // auto svd();
     // auto polar();
 
-    matrix &operator=(matrix const &other);
-    matrix &operator=(matrix &&other) = delete;
-    auto operator*(matrix const &other) -> matrix<T>;
+    matrix<T> &operator=(matrix<T> const &other);
+    matrix<T> &operator=(matrix<T> &&other) = delete;
+    auto operator*(matrix<T> const &other) -> matrix<T>;
     auto operator*(double multiplier) -> matrix<T>;
-    friend auto operator*(double multiplier, matrix const &matr) -> matrix<T>;
+    template <class K>
+    friend auto operator*(double multiplier, matrix<K> const &matr) -> matrix<K>;
     auto operator/(double multiplier) -> matrix<T>;
-    friend auto operator/(double multiplier, matrix const &matr) -> matrix<T>;
+    template <class K>
+    friend auto operator/(double multiplier, matrix<K> const &matr) -> matrix<K>;
 };
 
 template <class T> auto zero_matrix(size_t width, size_t height) -> matrix<T>;
