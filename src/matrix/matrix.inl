@@ -49,6 +49,12 @@ template <class T> auto mat::matrix<T>::get_width() const -> size_t {
 template <class T> auto mat::matrix<T>::get_height() const -> size_t {
     return this->height;
 }
+template <class T>
+mat::matrix<T> &mat::matrix<T>::operator=(mat::matrix<T> const &other) {
+    this->width = other.width;
+    this->height = other.height;
+    this->data = other.data;
+}
 
 template <typename T>
 auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)
