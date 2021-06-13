@@ -1,5 +1,5 @@
-#ifndef HOMEWORK_SOLUTIONS_HPP
-#define HOMEWORK_SOLUTIONS_HPP
+#ifndef USELESS_MATRIX_LIBRARY_SOLUTIONS_HPP
+#define USELESS_MATRIX_LIBRARY_SOLUTIONS_HPP
 
 namespace mat {
 
@@ -16,4 +16,4 @@ struct solutions {
 };
 } // namespace mat
 
-#endif // HOMEWORK_SOLUTIONS_HPP
+#endif // USELESS_MATRIX_LIBRARY_SOLUTIONS_HPP
