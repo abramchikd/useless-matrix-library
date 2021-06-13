@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10.0)
 
-project(Homework CXX)
+project(useless-matrix-library CXX)
 set(CMAKE_CXX_STANDARD 17)
 include(cmake/StandardProjectSettings.cmake)
 # Link this 'library' to set the c++ standard / compile-time options requested
