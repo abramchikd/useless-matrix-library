@@ -4,7 +4,7 @@
 
 template <class T>
 mat::matrix_row<T>::matrix_row(size_t _width)
-    : width{_width}, data{std::vector(_width, 0)} {}
+    : width{_width}, data{std::vector<T>(_width, 0)} {}
 
 template <class T>
 mat::matrix_row<T>::matrix_row(std::initializer_list<T> _data)
