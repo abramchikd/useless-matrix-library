@@ -12,12 +12,14 @@ class matrix {
     std::vector<matrix_row<T>> data;
 
   public:
-    matrix(size_t width, size_t height);
+    matrix(size_t _width, size_t _height);
     matrix(std::initializer_list<mat::matrix_row<T>> _data);
     matrix(matrix<T> const &other);
     matrix(matrix<T> &&other) = delete;
 
+    [[nodiscard]]
     auto get_width() const -> size_t;
+    [[nodiscard]]
     auto get_height() const -> size_t;
 
     auto t() -> matrix<T>;
@@ -51,6 +53,9 @@ template <class T> auto zero_matrix(size_t width, size_t height) -> matrix<T>;
 template <class T> auto unit_matrix(size_t width, size_t height) -> matrix<T>;
 
 } // namespace mat
+
+template <typename T>
+auto operator<<(std::ostream &os, mat::matrix<T> const &matrix) -> std::ostream &;
 
 #include "matrix.inl"
 

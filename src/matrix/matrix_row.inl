@@ -51,8 +51,8 @@ template <class T> auto mat::matrix_row<T>::operator[](size_t pos) const -> T {
     return data.at(pos);
 }
 
-template <class K>
-auto operator<<(std::ostream &os, mat::matrix_row<K> const &row) -> std::ostream & {
+template <class T>
+auto operator<<(std::ostream &os, mat::matrix_row<T> const &row) -> std::ostream & {
     for (size_t i = 0; i < row.get_width(); i++) {
         os << row[i] << " ";
     }

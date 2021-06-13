@@ -20,6 +20,7 @@ class matrix_row {
 
     matrix_row(matrix_row<T> const &other);
 
+    [[nodiscard]]
     auto get_width() const -> size_t;
 
     auto operator=(matrix_row<T> const &other) -> matrix_row<T> &;
@@ -30,8 +31,8 @@ class matrix_row {
 };
 }
 
-template <class K>
-auto operator<<(std::ostream &os, mat::matrix_row<K> const &row) -> std::ostream &;
+template <class T>
+auto operator<<(std::ostream &os, mat::matrix_row<T> const &row) -> std::ostream &;
 
 #include "matrix_row.inl"
 
