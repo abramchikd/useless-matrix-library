@@ -15,7 +15,7 @@ mat::matrix_row<T>::matrix_row(mat::matrix_row<T> const &other)
     : width{other.width}, data{other.data} {}
 
 template <class T>
-auto mat::matrix_row<T>::get_width() -> size_t {
+auto mat::matrix_row<T>::get_width() const -> size_t {
     return this->width;
 }
 
@@ -28,7 +28,18 @@ auto mat::matrix_row<T>::operator=(mat::matrix_row<T> const &other) -> mat::matr
 }
 
 template <class T>
-auto mat::matrix_row<T>::operator[](size_t pos) -> T {
+auto mat::matrix_row<T>::operator[](size_t pos) -> T & {
+    if (pos >= data.size()) {
+        using namespace std::string_literals;
+        throw std::out_of_range("Trying to get "s
+                                + std::to_string(pos)
+                                + " element of row with size "
+                                + std::to_string(this->width));
+    }
+
+    return data.at(pos);
+}
+template <class T> auto mat::matrix_row<T>::operator[](size_t pos) const -> T {
     if (pos >= data.size()) {
         using namespace std::string_literals;
         throw std::out_of_range("Trying to get "s
@@ -40,4 +51,11 @@ auto mat::matrix_row<T>::operator[](size_t pos) -> T {
     return data.at(pos);
 }
 
-#include "matrix.inl"
+template <class K>
+auto operator<<(std::ostream &os, mat::matrix_row<K> const &row) -> std::ostream & {
+    for (size_t i = 0; i < row.get_width(); i++) {
+        os << row[i] << " ";
+    }
+
+    return os;
+}
