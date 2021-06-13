@@ -2,6 +2,7 @@
 #define HOMEWORK_MATRIX_ROW_HPP
 
 #include <vector>
+#include <stdexcept>
 
 namespace mat {
 
@@ -12,19 +13,20 @@ class matrix_row {
     std::vector<T> data;
 
   public:
-    explicit matrix_row(int width);
-    matrix_row(std::initializer_list<T>);
+    explicit matrix_row(size_t width);
+    matrix_row(std::initializer_list<T> data);
     ~matrix_row() = default;
 
-    matrix_row(matrix_row const& other);
-    matrix_row(matrix_row &&other) = delete;
+    matrix_row(matrix_row<T> const &other);
+    matrix_row(matrix_row<T> &&other) = delete;
 
     auto get_width() -> size_t;
 
-    auto operator=(matrix_row const &other) -> matrix_row<T>;
-    auto operator=(matrix_row &&other) = delete;
+    auto operator=(matrix_row<T> const &other) -> matrix_row<T> &;
+    auto operator=(matrix_row<T> &&other) = delete;
 
     auto operator[](size_t pos) -> T;
 };
+}
 
 #endif // HOMEWORK_MATRIX_ROW_HPP
