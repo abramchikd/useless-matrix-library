@@ -1,5 +1,5 @@
-#ifndef HOMEWORK_MATRIX_HPP
-#define HOMEWORK_MATRIX_HPP
+#ifndef USELESS_MATRIX_LIBRARY_MATRIX_HPP
+#define USELESS_MATRIX_LIBRARY_MATRIX_HPP
 
 #include "matrix_row.hpp"
 
@@ -13,12 +13,12 @@ class matrix {
 
   public:
     matrix(size_t width, size_t height);
-    matrix(std::initializer_list<std::initializer_list<T>>);
+    matrix(std::initializer_list<mat::matrix_row<T>> _data);
     matrix(matrix<T> const &other);
     matrix(matrix<T> &&other) = delete;
 
-    auto get_width() -> size_t;
-    auto get_height() -> size_t;
+    auto get_width() const -> size_t;
+    auto get_height() const -> size_t;
 
     auto t() -> matrix<T>;
     auto determinant() -> T;
@@ -41,6 +41,9 @@ class matrix {
     auto operator/(double multiplier) -> matrix<T>;
     template <class K>
     friend auto operator/(double multiplier, matrix<K> const &matr) -> matrix<K>;
+
+    auto operator[](size_t row_num) -> mat::matrix_row<T> &;
+    auto operator[](size_t row_num) const -> mat::matrix_row<T> const &;
 };
 
 template <class T> auto zero_matrix(size_t width, size_t height) -> matrix<T>;
@@ -49,4 +52,6 @@ template <class T> auto unit_matrix(size_t width, size_t height) -> matrix<T>;
 
 } // namespace mat
 
-#endif // HOMEWORK_MATRIX_HPP
+#include "matrix.inl"
+
+#endif // USELESS_MATRIX_LIBRARY_MATRIX_HPP
