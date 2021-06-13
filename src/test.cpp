@@ -47,6 +47,17 @@ TEST_CASE("mat::matrix(std::initializer_list<...) constructor") {
     }
 }
 
+TEST_CASE("mat::matrix copy constructor") {
+    auto a = mat::matrix<int> {{0, 1}, {1, 2}};
+    auto b = a;
+
+    for (size_t i = 0; i < 2; i++) {
+        for (size_t j = 0; j < 2; j++) {
+                CHECK(b[i][j] == i + j);
+        }
+    }
+}
+
 TEST_CASE("mat::matrix throws std::out_of_range exception") {
     auto matrix = mat::matrix<int>(2, 2);
     CHECK_THROWS(matrix[2]);

@@ -16,6 +16,10 @@ mat::matrix<T>::matrix(std::initializer_list<mat::matrix_row<T>> _data)
 }
 
 template <class T>
+mat::matrix<T>::matrix(mat::matrix<T> const &other)
+    : width{other.width}, height{other.height}, data{other.data} {}
+
+template <class T>
 auto mat::matrix<T>::operator[](size_t row_num) -> mat::matrix_row<T> & {
     if (row_num >= this->height) {
         using namespace std::string_literals;
@@ -37,9 +41,11 @@ auto mat::matrix<T>::operator[](size_t row_num) const
     }
     return this->data[row_num];
 }
+
 template <class T> auto mat::matrix<T>::get_width() const -> size_t {
     return this->width;
 }
+
 template <class T> auto mat::matrix<T>::get_height() const -> size_t {
     return this->height;
 }
