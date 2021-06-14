@@ -1,3 +1,6 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "LoopDoesntUseConditionVariableInspection"
+#pragma ide diagnostic ignored "readability-magic-numbers"
 #include "catch.hpp"
 
 #include <iostream>
@@ -145,9 +148,7 @@ TEST_CASE("Matrix multiplication throws") {
 
 TEST_CASE("Matrix multiplication") {
     auto m1 = mat::matrix<int> {{1, 2, 3}, {4, 5, 6}, {7, 8 , 9}};
-    auto m2(m1);
-
-    auto mat = m1 * m2;
+    auto mat = m1 * m1;
 
     auto res = mat::matrix<int> {{30, 36, 42}, {66, 81, 96}, {102, 126, 150}};
 
@@ -163,3 +164,4 @@ TEST_CASE("Unit matrix test") {
     bool eq = mat::unit_matrix<double>(3) == m * m.inverted();
     CHECK(eq);
 }
+#pragma clang diagnostic pop
