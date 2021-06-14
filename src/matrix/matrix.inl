@@ -202,11 +202,6 @@ auto operator*(double multiplier, mat::matrix<K> const &matr)
     return matr * multiplier;
 }
 
-template <class K>
-auto operator/(double multiplier, mat::matrix<K> const &matr) -> mat::matrix<K> {
-    return matr / multiplier;
-}
-
 
 template <typename T>
 auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)
