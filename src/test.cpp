@@ -135,3 +135,25 @@ TEST_CASE("Inverted matrix") {
         }
     }
 }
+
+TEST_CASE("Matrix multiplication throws") {
+    auto m1 = mat::matrix<int>(1, 2);
+    auto m2 = mat::matrix<int>(3, 4);
+
+    CHECK_THROWS(m1 * m2);
+}
+
+TEST_CASE("Matrix multiplication") {
+    auto m1 = mat::matrix<int> {{1, 2, 3}, {4, 5, 6}, {7, 8 , 9}};
+    auto m2(m1);
+
+    auto mat = m1 * m2;
+
+    auto res = mat::matrix<int> {{30, 36, 42}, {66, 81, 96}, {102, 126, 150}};
+
+    for (size_t i = 0; i < mat.get_height(); i++) {
+        for (size_t j = 0; j < mat.get_width(); j++) {
+            CHECK(mat[i][j] == res[i][j]);
+        }
+    }
+}
