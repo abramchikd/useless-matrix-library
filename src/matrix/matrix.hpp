@@ -15,7 +15,9 @@ class matrix {
     matrix(size_t _width, size_t _height);
     matrix(std::initializer_list<mat::matrix_row<T>> _data);
     matrix(matrix<T> const &other);
-    matrix(matrix<T> &&other) = delete;
+    matrix(matrix<T> &&other) noexcept;
+
+    auto cut(size_t row, size_t column) -> matrix<T>;
 
     [[nodiscard]]
     auto get_width() const -> size_t;
@@ -24,6 +26,7 @@ class matrix {
 
     [[nodiscard]]
     auto t() -> matrix<T>;
+    [[nodiscard]]
     auto determinant() -> T;
     auto inverted() -> matrix<T>;
     auto minor_matrix() -> matrix<T>;

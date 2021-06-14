@@ -55,8 +55,7 @@ mat::matrix<T> &mat::matrix<T>::operator=(mat::matrix<T> const &other) {
     this->height = other.height;
     this->data = other.data;
 }
-template <class T>
-auto mat::matrix<T>::t() -> mat::matrix<T> {
+template <class T> auto mat::matrix<T>::t() -> mat::matrix<T> {
     auto new_matrix = mat::matrix<T>(this->height, this->width);
 
     for (int i = 0; i < this->get_height(); i++) {
@@ -67,6 +66,52 @@ auto mat::matrix<T>::t() -> mat::matrix<T> {
 
     return new_matrix;
 }
+template <class T> auto mat::matrix<T>::determinant() -> T {
+    if (this->get_width() != this->get_height()) {
+        throw std::invalid_argument(
+            "Determinant is available only for square matrix");
+    }
+
+    if (this->get_width() == 1 && this->get_height() == 1) {
+        return (*this)[0][0];
+    }
+
+    T det;
+    for (int i = 0; i < this->get_width(); i++) {
+        int multiplier = i % 2 == 0 ? 1 : -1;
+        det += multiplier * (*this)[0][i] * this->cut(0, i).determinant();
+    }
+
+    return det;
+}
+template <class T>
+auto mat::matrix<T>::cut(size_t row, size_t column) -> mat::matrix<T> {
+    auto new_matrix =
+        mat::matrix<T>(this->get_width() - 1, this->get_width() - 1);
+    size_t new_i = 0;
+    for (size_t i = 0; i < this->get_height(); i++) {
+        if (i == row) {
+            continue;
+        }
+
+        size_t new_j = 0;
+        for (size_t j = 0; j < this->get_width(); j++) {
+            if (j == column) {
+                continue;
+            }
+
+            new_matrix[new_i][new_j] = (*this)[i][j];
+            new_j++;
+        }
+
+        new_i++;
+    }
+
+    return new_matrix;
+}
+template <class T>
+mat::matrix<T>::matrix(mat::matrix<T> &&other) noexcept
+    : width(other.width), height(other.height), data(other.data) {}
 
 template <typename T>
 auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)

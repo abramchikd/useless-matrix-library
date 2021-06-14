@@ -1,6 +1,7 @@
 #include "catch.hpp"
 
 #include <iostream>
+#include <valarray>
 
 #include "matrix/matrix.hpp"
 #include "matrix/matrix_row.hpp"
@@ -87,4 +88,24 @@ TEST_CASE("matrix transposing") {
             CHECK(matrix_t[j][i] == matrix[i][j]);
         }
     }
+}
+
+TEST_CASE("throws on attempt to find determinant of non-square matrix") {
+    auto matrix = mat::matrix<int>(3, 4);
+    CHECK_THROWS(matrix.determinant());
+}
+
+TEST_CASE("matrix::cut") {
+    auto matrix = mat::matrix<int> {{1, 2}, {3, 4}};
+    auto m = matrix.cut(0, 0);
+    CHECK(m[0][0] == 4);
+    auto m2 = matrix.cut(0, 1);
+    CHECK(m2[0][0] == 3);
+}
+
+TEST_CASE("determinant") {
+    auto matrix = mat::matrix<double> {{1.0, 0, 0},
+                                    {0, sqrt(2)/2, -sqrt(2)/2},
+                                      {0, sqrt(2)/2, sqrt(2)/2}};
+    CHECK((matrix.determinant() - 1.0) < 1e-9);
 }
