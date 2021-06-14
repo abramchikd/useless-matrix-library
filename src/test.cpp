@@ -92,7 +92,7 @@ TEST_CASE("matrix transposing") {
 
 TEST_CASE("throws on attempt to find determinant of non-square matrix") {
     auto matrix = mat::matrix<int>(3, 4);
-    CHECK_THROWS(matrix.determinant());
+    CHECK_THROWS((void) matrix.determinant());
 }
 
 TEST_CASE("matrix::cut") {
@@ -156,4 +156,10 @@ TEST_CASE("Matrix multiplication") {
             CHECK(mat[i][j] == res[i][j]);
         }
     }
+}
+
+TEST_CASE("Unit matrix test") {
+    auto m = mat::matrix<double>{{2, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    bool eq = mat::unit_matrix<double>(3) == m * m.inverted();
+    CHECK(eq);
 }

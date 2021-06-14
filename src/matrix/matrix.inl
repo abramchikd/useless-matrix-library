@@ -54,12 +54,14 @@ mat::matrix<T> &mat::matrix<T>::operator=(mat::matrix<T> const &other) {
     this->width = other.width;
     this->height = other.height;
     this->data = other.data;
+
+    return *this;
 }
 template <class T> auto mat::matrix<T>::t() const -> mat::matrix<T> {
     auto new_matrix = mat::matrix<T>(this->height, this->width);
 
-    for (int i = 0; i < this->get_height(); i++) {
-        for (int j = 0; j < this->get_width(); j++) {
+    for (size_t i = 0; i < this->get_height(); i++) {
+        for (size_t j = 0; j < this->get_width(); j++) {
             new_matrix[j][i] = (*this)[i][j];
         }
     }
@@ -77,7 +79,7 @@ template <class T> auto mat::matrix<T>::determinant() const -> T {
     }
 
     T det = 0;
-    for (int i = 0; i < this->get_width(); i++) {
+    for (size_t i = 0; i < this->get_width(); i++) {
         int multiplier = i % 2 == 0 ? 1 : -1;
         det += multiplier * (*this)[0][i] * this->cut(0, i).determinant();
     }
@@ -114,15 +116,15 @@ mat::matrix<T>::matrix(mat::matrix<T> &&other) noexcept
     : width(other.width), height(other.height), data(other.data) {}
 
 template <class T> auto mat::matrix<T>::minor_matrix() const -> mat::matrix<T> {
-    auto matrix = mat::matrix<T>(this->get_width(), this->get_height());
+    auto new_matrix = mat::matrix<T>(this->get_width(), this->get_height());
 
     for (size_t i = 0; i < this->get_height(); i++) {
         for (size_t j = 0; j < this->get_width(); j++) {
-            matrix[i][j] = this->cut(i, j).determinant();
+            new_matrix[i][j] = this->cut(i, j).determinant();
         }
     }
 
-    return matrix;
+    return new_matrix;
 }
 
 template <class T>
@@ -151,7 +153,8 @@ template <class T> auto mat::matrix<T>::inverted() const -> mat::matrix<T> {
 }
 
 template <class T>
-auto mat::matrix<T>::operator*(mat::matrix<T> const &other) const -> mat::matrix<T> {
+auto mat::matrix<T>::operator*(mat::matrix<T> const &other) const
+    -> mat::matrix<T> {
     if (this->get_width() != other.get_height()) {
         throw std::invalid_argument(
             "Matrix a and b can be multiplied only if a.height a b.width");
@@ -195,13 +198,35 @@ auto mat::matrix<T>::operator/(double multiplier) const -> mat::matrix<T> {
 
     return res;
 }
+template <class K>
+auto operator==(const mat::matrix<K> &left, mat::matrix<K> const &right)
+    -> bool {
+    if (left.get_width() != right.get_width() ||
+        left.get_height() != right.get_height()) {
+        return false;
+    }
+
+    for (size_t i = 0; i < left.get_height(); i++) {
+        for (size_t j = 0; j < right.get_width(); j++) {
+            if (left[i][j] != right[i][j]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+template <class K>
+auto operator!=(mat::matrix<K> const &left, mat::matrix<K> &right) -> bool {
+    return !(left == right);
+}
 
 template <class K>
 auto operator*(double multiplier, mat::matrix<K> const &matr)
     -> mat::matrix<K> {
     return matr * multiplier;
 }
-
 
 template <typename T>
 auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)
@@ -213,7 +238,8 @@ auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)
     return os;
 }
 
-template <class T> auto mat::zero_matrix(size_t width, size_t height) -> mat::matrix<T> {
+template <class T>
+auto mat::zero_matrix(size_t width, size_t height) -> mat::matrix<T> {
     return mat::matrix<T>(width, height);
 }
 

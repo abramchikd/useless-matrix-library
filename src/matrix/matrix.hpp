@@ -9,7 +9,8 @@ template <class T>
 
 /**
  * Represents two-dimensional matrix
- * @tparam T must support *, /, +, - operations. Correct work is guaranteed only with numeric types, but you can try others on your own risk
+ * @tparam T must support *, /, +, - operations. Correct work is guaranteed only
+ * with numeric types, but you can try others on your own risk
  */
 class matrix {
 
@@ -27,7 +28,6 @@ class matrix {
     std::vector<matrix_row<T>> data;
 
   public:
-
     /**
      * creates matrix filled with zeroes
      * @param _width
@@ -64,40 +64,34 @@ class matrix {
      *
      * @return width of the matrix
      */
-    [[nodiscard]]
-    auto get_width() const -> size_t;
+    [[nodiscard]] auto get_width() const -> size_t;
     /**
      *
      * @return height of the matrix
      */
-    [[nodiscard]]
-    auto get_height() const -> size_t;
+    [[nodiscard]] auto get_height() const -> size_t;
 
     /**
      * @return transposed matrix
      */
-    [[nodiscard]]
-    auto t() const -> matrix<T>;
+    [[nodiscard]] auto t() const -> matrix<T>;
 
     /**
      * @attention Be aware of factorial time complexity
      * @return determinant of the matrix
      */
-    [[nodiscard]]
-    auto determinant() const -> T;
+    [[nodiscard]] auto determinant() const -> T;
 
     /**
      * @return inverted matrix
      */
-    [[nodiscard]]
-    auto inverted() const -> matrix<T>;
+    [[nodiscard]] auto inverted() const -> matrix<T>;
 
     /**
      *
      * @return matrix of minors with same size as original
      */
-    [[nodiscard]]
-    auto minor_matrix() const -> matrix<T>;
+    [[nodiscard]] auto minor_matrix() const -> matrix<T>;
 
     /**
      * copy assigment
@@ -110,7 +104,7 @@ class matrix {
      * @param other
      * @return
      */
-    matrix<T> &operator=(matrix<T> &&other) noexcept ;
+    matrix<T> &operator=(matrix<T> &&other) noexcept;
 
     /**
      * matrix multiplication
@@ -137,6 +131,7 @@ class matrix {
      * @return specified row of the matrix
      */
     auto operator[](size_t row_num) -> mat::matrix_row<T> &;
+
     /**
      * @param row_num
      * @return specified row of the matrix
@@ -146,17 +141,18 @@ class matrix {
 
 /**
  *
- * @tparam T must support *, /, +, - operations. Correct work is guaranteed only with numeric types, but you can try others on your own risk
+ * @tparam T must support *, /, +, - operations. Correct work is guaranteed only
+ * with numeric types, but you can try others on your own risk
  * @param width
  * @param height
  * @return matrix of specified width and height filled width zeroes
  */
 template <class T> auto zero_matrix(size_t width, size_t height) -> matrix<T>;
 
-
 /**
  *
- * @tparam T must support *, /, +, - operations. Correct work is guaranteed only with numeric types, but you can try others on your own risk
+ * @tparam T must support *, /, +, - operations. Correct work is guaranteed only
+ * with numeric types, but you can try others on your own risk
  * @param width
  * @return unit matrix with specified width and height
  */
@@ -175,6 +171,25 @@ template <class K>
 auto operator*(double multiplier, mat::matrix<K> const &matr) -> mat::matrix<K>;
 
 /**
+ * equal operator
+ * @tparam K
+ * @param other
+ * @return
+ */
+template <class K>
+auto operator==(mat::matrix<K> const &left, mat::matrix<K> const &right)
+    -> bool;
+
+/**
+ * not-equal operator
+ * @tparam K
+ * @param other
+ * @return
+ */
+template <class K>
+auto operator!=(mat::matrix<K> const &left, mat::matrix<K> &right) -> bool;
+
+/**
  * output operator
  * @tparam T
  * @param os
@@ -182,7 +197,8 @@ auto operator*(double multiplier, mat::matrix<K> const &matr) -> mat::matrix<K>;
  * @return
  */
 template <typename T>
-auto operator<<(std::ostream &os, mat::matrix<T> const &matrix) -> std::ostream &;
+auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)
+    -> std::ostream &;
 
 #include "matrix.inl"
 
