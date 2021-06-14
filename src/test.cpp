@@ -109,3 +109,29 @@ TEST_CASE("determinant") {
                                       {0, sqrt(2)/2, sqrt(2)/2}};
     CHECK((matrix.determinant() - 1.0) < 1e-9);
 }
+
+TEST_CASE("Minor matrix") {
+    auto matrix = mat::matrix<int> {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    auto result = mat::matrix<int> {{-3, -6, -3}, {-6, -12, -6}, {-3, -6, -3}};
+
+    matrix = matrix.minor_matrix();
+
+    for (size_t i = 0; i < matrix.get_height(); i++) {
+        for (size_t j = 0; j < matrix.get_width(); j++) {
+            CHECK(matrix[i][j] == result[i][j]);
+        }
+    }
+}
+
+TEST_CASE("Inverted matrix") {
+    auto matrix = mat::matrix<double> {{2, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    auto res = mat::matrix<double> {{1, -2, 1}, {-2, 1, 0}, {1, 2.0/3, -2.0/3}};
+
+    auto m = matrix.inverted();
+
+    for (size_t i = 0; i < m.get_height(); i++) {
+        for (size_t j = 0; j < m.get_width(); j ++) {
+            CHECK(std::abs(m[i][j] - res[i][j]) < 1e-9);
+        }
+    }
+}

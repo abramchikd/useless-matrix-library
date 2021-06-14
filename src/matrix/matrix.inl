@@ -76,7 +76,7 @@ template <class T> auto mat::matrix<T>::determinant() -> T {
         return (*this)[0][0];
     }
 
-    T det;
+    T det = 0;
     for (int i = 0; i < this->get_width(); i++) {
         int multiplier = i % 2 == 0 ? 1 : -1;
         det += multiplier * (*this)[0][i] * this->cut(0, i).determinant();
@@ -112,6 +112,43 @@ auto mat::matrix<T>::cut(size_t row, size_t column) -> mat::matrix<T> {
 template <class T>
 mat::matrix<T>::matrix(mat::matrix<T> &&other) noexcept
     : width(other.width), height(other.height), data(other.data) {}
+
+
+template <class T> auto mat::matrix<T>::minor_matrix() -> mat::matrix<T> {
+    auto matrix = mat::matrix<T>(this->get_width(), this->get_height());
+
+    for (size_t i = 0; i < this->get_height(); i++) {
+        for (size_t j = 0; j < this->get_width(); j++) {
+            matrix[i][j] = this->cut(i, j).determinant();
+        }
+    }
+
+    return matrix;
+}
+
+template <class T>
+mat::matrix<T> &mat::matrix<T>::operator=(mat::matrix<T> &&other)  noexcept {
+    if (this == &other) return *this;
+
+    this->width = other.get_width();
+    this->height = other.get_height();
+    this->data = other.data;
+
+    return *this;
+}
+template <class T> auto mat::matrix<T>::inverted() -> mat::matrix<T> {
+    auto det = this->determinant();
+    auto this_t = this->t();
+    auto res = this_t.minor_matrix();
+    for (size_t i = 0; i < res.get_height(); i++) {
+        for (size_t j = 0; j < res.get_width(); j++) {
+            int multiplier = (i + j) % 2 == 0 ? 1 : -1;
+            res[i][j] = res[i][j] * multiplier  / det;
+        }
+    }
+
+    return res;
+}
 
 template <typename T>
 auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)

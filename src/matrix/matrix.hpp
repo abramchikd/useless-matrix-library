@@ -28,7 +28,9 @@ class matrix {
     auto t() -> matrix<T>;
     [[nodiscard]]
     auto determinant() -> T;
+    [[nodiscard]]
     auto inverted() -> matrix<T>;
+    [[nodiscard]]
     auto minor_matrix() -> matrix<T>;
     auto solve();
     // auto characterystical(); //характеристический многочлен
@@ -39,7 +41,7 @@ class matrix {
     // auto polar();
 
     matrix<T> &operator=(matrix<T> const &other);
-    matrix<T> &operator=(matrix<T> &&other) = delete;
+    matrix<T> &operator=(matrix<T> &&other) noexcept ;
     auto operator*(matrix<T> const &other) -> matrix<T>;
     auto operator*(double multiplier) -> matrix<T>;
     template <class K>
