@@ -74,3 +74,17 @@ TEST_CASE("mat::matrix throws std::out_of_range exception") {
     auto matrix = mat::matrix<int>(2, 2);
     CHECK_THROWS(matrix[2]);
 }
+
+TEST_CASE("matrix transposing") {
+    auto matrix = mat::matrix<int> {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    auto matrix_t = matrix.t();
+
+    CHECK(matrix_t.get_width() == matrix.get_height());
+    CHECK(matrix_t.get_height() == matrix.get_width());
+
+    for (size_t i = 0; i < matrix.get_height(); i++) {
+        for (size_t j = 0; j < matrix.get_width(); j++) {
+            CHECK(matrix_t[j][i] == matrix[i][j]);
+        }
+    }
+}

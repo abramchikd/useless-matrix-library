@@ -55,6 +55,18 @@ mat::matrix<T> &mat::matrix<T>::operator=(mat::matrix<T> const &other) {
     this->height = other.height;
     this->data = other.data;
 }
+template <class T>
+auto mat::matrix<T>::t() -> mat::matrix<T> {
+    auto new_matrix = mat::matrix<T>(this->height, this->width);
+
+    for (int i = 0; i < this->get_height(); i++) {
+        for (int j = 0; j < this->get_width(); j++) {
+            new_matrix[j][i] = (*this)[i][j];
+        }
+    }
+
+    return new_matrix;
+}
 
 template <typename T>
 auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)

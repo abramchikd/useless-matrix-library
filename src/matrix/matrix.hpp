@@ -22,6 +22,7 @@ class matrix {
     [[nodiscard]]
     auto get_height() const -> size_t;
 
+    [[nodiscard]]
     auto t() -> matrix<T>;
     auto determinant() -> T;
     auto inverted() -> matrix<T>;
