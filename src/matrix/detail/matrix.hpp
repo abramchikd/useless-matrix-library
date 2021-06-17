@@ -1,5 +1,3 @@
-#include "matrix.hpp"
-
 template <class T>
 mat::matrix<T>::matrix(size_t _width, size_t _height)
     : width{_width}, height{_height} {

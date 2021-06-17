@@ -1,5 +1,3 @@
-#include "matrix_row.hpp"
-
 #include <string>
 
 template <class T>

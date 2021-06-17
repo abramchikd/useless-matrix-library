@@ -86,6 +86,6 @@ class matrix_row {
 template <class T>
 auto operator<<(std::ostream &os, mat::matrix_row<T> const &row) -> std::ostream &;
 
-#include "matrix_row.inl"
+#include "detail/matrix_row.hpp"
 
 #endif // USELESS_MATRIX_LIBRARY_MATRIX_ROW_HPP

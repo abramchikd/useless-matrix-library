@@ -200,6 +200,6 @@ template <typename T>
 auto operator<<(std::ostream &os, mat::matrix<T> const &matrix)
     -> std::ostream &;
 
-#include "matrix.inl"
+#include "detail/matrix.hpp"
 
 #endif // USELESS_MATRIX_LIBRARY_MATRIX_HPP
